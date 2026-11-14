@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  app:
+    build: .
+    container_name: stocksync-app
+    depends_on:
+      - postgres
+    environment:
+      STOCKSYNC_DB_URL: jdbc:postgresql://postgres:5432/stocksync
+      STOCKSYNC_DB_USER: stocksync
+      STOCKSYNC_DB_PASSWORD: stocksync
+    ports:
+      - "8080:8080"
+
+  postgres:
+    image: postgres:16
+    container_name: stocksync-postgres
+    environment:
+      POSTGRES_DB: stocksync
+      POSTGRES_USER: stocksync
+      POSTGRES_PASSWORD: stocksync
+    ports:
+      - "5432:5432"
+    volumes:
+      - stocksync_pg:/var/lib/postgresql/data
+
+volumes:
+  stocksync_pg:

@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: ${STOCKSYNC_DB_URL:jdbc:postgresql://localhost:5432/stocksync}
+    username: ${STOCKSYNC_DB_USER:postgres}
+    password: ${STOCKSYNC_DB_PASSWORD:}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+    open-in-view: false
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui
+
+server:
+  port: 8080
